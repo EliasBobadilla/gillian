@@ -1,15 +1,15 @@
 import { css } from '@emotion/react'
 
 type Prop = {
+  title: string
   image: string
-  text?: string
 }
 
-export function Preview({ image, text }: Prop) {
+export function Preview({ title, image }: Prop) {
   return (
     <div>
-      <img alt={image} css={imgStyle} src={image} />
-      <p> {text} </p>
+      <p> {title} </p>
+      <img alt={title} css={imgStyle} src={image} />
     </div>
   )
 }

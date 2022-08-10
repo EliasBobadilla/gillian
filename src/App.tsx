@@ -1,12 +1,13 @@
-import Reader from "./components/reader";
-import "./App.css";
+import './App.css'
+
+import Reader from './components/reader'
 
 function App() {
   return (
     <div>
       <Reader />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

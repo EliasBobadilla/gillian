@@ -1,5 +1,3 @@
-import './App.css'
-
 import Reader from './components/reader'
 
 function App() {

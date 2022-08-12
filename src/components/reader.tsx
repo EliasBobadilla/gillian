@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { css } from '@emotion/react'
+import React, { useState } from 'react'
 
 import { Field, Image, Ocr } from '../types/ocr'
 import { readAll } from '../utils/ocr'
 import { Preview } from './preview'
+import { Viewer } from './viewer'
 
 const demoFields: Field[] = [
   {
@@ -20,9 +22,11 @@ const demoFields: Field[] = [
 function Reader() {
   const [images, setImages] = useState<Image[]>([])
   const [results, setResults] = useState<Ocr[]>([])
+  const [selectedImage, setSelectedImage] = useState<Ocr>([])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target
+    console.log(files)
     if (!files || !files.length || files.length > 5 * 5 * 4) return
     setImages(
       [...files].map((file: File) => ({
@@ -39,29 +43,44 @@ function Reader() {
     setResults(ocr)
   }
 
-  const ref = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (ref.current !== null) {
-      ref.current.setAttribute('directory', '')
-      ref.current.setAttribute('webkitdirectory', '')
-    }
-  }, [ref])
+  const handleSelectImageFromPreview = (id: string) => {
+    const selected = results.find((x) => x.id === id)
+    //const selected = images.find((x) => x.name === id)
+    if (!selected) return
+    setSelectedImage(selected)
+    //setSelectedImage({ id: selected.name, image: selected.url, words: [] })
+  }
 
   return (
-    <div>
-      <input type="file" onChange={handleChange} ref={ref} />
-      <button onClick={handleClick}>Convert to text</button>
-      <button
-        onClick={() => {
-          console.log(results)
-        }}
+    <div
+      css={css`
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        width: 100%;
+        margin: 0;
+      `}
+    >
+      <div
+        css={css`
+          width: 10%;
+        `}
       >
-        Results!
-      </button>
-      {images.map((img, i) => (
-        <Preview key={i} title={img.name} image={img.url} />
-      ))}
+        <input type="file" onChange={handleChange} multiple />
+        <button onClick={handleClick}>Convert to text</button>
+        <button
+          onClick={() => {
+            console.log(results)
+          }}
+        ></button>
+      </div>
+
+      <Preview
+        images={images}
+        onSelect={handleSelectImageFromPreview}
+        selected={selectedImage}
+      />
+      <Viewer image={selectedImage.image} />
     </div>
   )
 }

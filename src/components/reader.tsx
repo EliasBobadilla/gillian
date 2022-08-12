@@ -1,7 +1,8 @@
 import { css } from '@emotion/react'
 import React, { useState } from 'react'
 
-import { Field, Image, Ocr } from '../types/ocr'
+import { Field, Image } from '../types/ocr'
+import { getBase64 } from '../utils/image'
 import { readAll } from '../utils/ocr'
 import { Preview } from './preview'
 import { Viewer } from './viewer'
@@ -19,36 +20,54 @@ const demoFields: Field[] = [
   },
 ]
 
+const selectedInitialState: Image = {
+  id: '',
+  image: '',
+}
+
 function Reader() {
   const [images, setImages] = useState<Image[]>([])
-  const [results, setResults] = useState<Ocr[]>([])
-  const [selectedImage, setSelectedImage] = useState<Ocr>([])
+  const [selectedImage, setSelectedImage] = useState<Image>(selectedInitialState)
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const fileValidation = (files: FileList | null) => {
+    if (!files || !files.length) {
+      console.error('Something is wrong') // TODO: create alert box
+      return false
+    }
+
+    if (files.length > 5 * 5 * 10) {
+      console.error('Max files limit') // TODO: create alert box
+      return false
+    }
+
+    return true
+  }
+
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target
-    console.log(files)
-    if (!files || !files.length || files.length > 5 * 5 * 4) return
-    setImages(
-      [...files].map((file: File) => ({
-        name: file.name,
-        url: URL.createObjectURL(file),
+    if (!fileValidation(files)) return
+
+    const loadedImages = await Promise.all(
+      [...files!].map(async (file: File) => ({
+        id: file.name,
+        image: await getBase64(file),
       })),
     )
+    setImages(loadedImages)
   }
 
   const handleClick = async () => {
     if (!images.length) return
     const ocr = await readAll(images, demoFields)
-    console.log('OCR RESULT -------->', ocr)
-    setResults(ocr)
+    console.log('OCR PROCESS END -------------->', ocr)
+    setImages(ocr)
   }
 
   const handleSelectImageFromPreview = (id: string) => {
-    const selected = results.find((x) => x.id === id)
-    //const selected = images.find((x) => x.name === id)
+    const selected = images.find((x) => x.id === id)
     if (!selected) return
     setSelectedImage(selected)
-    //setSelectedImage({ id: selected.name, image: selected.url, words: [] })
+    console.log('=================>', selected)
   }
 
   return (
@@ -70,7 +89,7 @@ function Reader() {
         <button onClick={handleClick}>Convert to text</button>
         <button
           onClick={() => {
-            console.log(results)
+            console.log(images)
           }}
         ></button>
       </div>
@@ -80,7 +99,7 @@ function Reader() {
         onSelect={handleSelectImageFromPreview}
         selected={selectedImage}
       />
-      <Viewer image={selectedImage.image} />
+      <Viewer image={selectedImage?.image!} />
     </div>
   )
 }

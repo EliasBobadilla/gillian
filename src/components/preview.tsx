@@ -1,12 +1,11 @@
 import { css } from '@emotion/react'
 
-import { Ocr } from '../types/ocr'
 import { Image } from '../types/ocr'
 import { Thumb } from './thumb'
 
 type Prop = {
   images: Image[]
-  selected: Ocr
+  selected: Image
   onSelect: (id: string) => void
 }
 
@@ -15,10 +14,10 @@ export function Preview({ images, selected, onSelect }: Prop) {
     <div css={containerStyle}>
       {images.map((img) => (
         <Thumb
-          key={img.name}
-          title={img.name}
+          key={img.id}
+          title={img.id}
           onSelect={onSelect}
-          active={selected.id === img.name}
+          active={selected.id === img.id}
         />
       ))}
     </div>

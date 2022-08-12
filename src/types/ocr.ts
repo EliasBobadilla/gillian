@@ -5,12 +5,6 @@ export type Log = {
   progress: number
 }
 
-export type Ocr = {
-  id: string
-  image: string
-  words: Word[]
-}
-
 export type Field = {
   name: string
   type: string
@@ -18,6 +12,7 @@ export type Field = {
 }
 
 export type Image = {
-  name: string
-  url: string
+  id: string
+  image: string
+  words?: Word[]
 }

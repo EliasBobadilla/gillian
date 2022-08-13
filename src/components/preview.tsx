@@ -1,11 +1,11 @@
 import { css } from '@emotion/react'
 
-import { Image } from '../types/ocr'
+import { Data } from '../types/ocr'
 import { Thumb } from './thumb'
 
 type Prop = {
-  images: Image[]
-  selected: Image
+  images: Data[]
+  selected: Data
   onSelect: (id: string) => void
 }
 

@@ -1,18 +1,27 @@
-import { Word } from 'tesseract.js'
-
-export type Log = {
-  id: string
-  progress: number
-}
-
 export type Field = {
+  label: string
   name: string
   type: string
   anchor: string
 }
 
-export type Image = {
+export type Ocr = {
+  text: string
+  box: {
+    x0: number
+    y0: number
+    x1: number
+    y1: number
+  }
+}
+
+export type Data = {
   id: string
   image: string
-  words?: Word[]
+  ocr?: Ocr[]
+}
+
+export type Log = {
+  id: string
+  progress: number
 }

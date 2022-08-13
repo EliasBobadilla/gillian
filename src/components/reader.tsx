@@ -1,33 +1,38 @@
 import { css } from '@emotion/react'
 import React, { useState } from 'react'
 
-import { Field, Image } from '../types/ocr'
+import { Data, Field } from '../types/ocr'
 import { getBase64 } from '../utils/image'
 import { readAll } from '../utils/ocr'
+import { Header } from './header'
 import { Preview } from './preview'
+import { Validator } from './validator'
 import { Viewer } from './viewer'
 
+// TODO: remove
 const demoFields: Field[] = [
   {
-    name: 'Fecha de solicitud',
+    label: 'Fecha de solicitud',
+    name: 'applicationDate',
     type: 'date',
     anchor: 'Solicitud',
   },
   {
-    name: 'Paciente',
+    label: 'Paciente',
+    name: 'patient',
     type: 'text',
     anchor: 'Paciente',
   },
 ]
 
-const selectedInitialState: Image = {
+const selectedInitialState: Data = {
   id: '',
   image: '',
 }
 
 function Reader() {
-  const [images, setImages] = useState<Image[]>([])
-  const [selectedImage, setSelectedImage] = useState<Image>(selectedInitialState)
+  const [images, setImages] = useState<Data[]>([])
+  const [selectedImage, setSelectedImage] = useState<Data>(selectedInitialState)
 
   const fileValidation = (files: FileList | null) => {
     if (!files || !files.length) {
@@ -54,6 +59,7 @@ function Reader() {
       })),
     )
     setImages(loadedImages)
+    setSelectedImage(loadedImages[0])
   }
 
   const handleClick = async () => {
@@ -67,39 +73,51 @@ function Reader() {
     const selected = images.find((x) => x.id === id)
     if (!selected) return
     setSelectedImage(selected)
-    console.log('=================>', selected)
+    console.log('selected ------>', selected)
+  }
+
+  const handleValidationFormChange = (data: Data) => {
+    console.log('changed ----->', data)
   }
 
   return (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        width: 100%;
-        margin: 0;
-      `}
-    >
+    <div>
+      <Header />
       <div
         css={css`
-          width: 10%;
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          width: 100%;
+          margin: 0;
         `}
       >
-        <input type="file" onChange={handleChange} multiple />
-        <button onClick={handleClick}>Convert to text</button>
-        <button
-          onClick={() => {
-            console.log(images)
-          }}
-        ></button>
-      </div>
+        <div
+          css={css`
+            width: 10%;
+          `}
+        >
+          <input type="file" onChange={handleChange} multiple />
+          <button onClick={handleClick}>Convert to text</button>
+          <button
+            onClick={() => {
+              console.log(images)
+            }}
+          ></button>
+        </div>
 
-      <Preview
-        images={images}
-        onSelect={handleSelectImageFromPreview}
-        selected={selectedImage}
-      />
-      <Viewer image={selectedImage?.image!} />
+        <Preview
+          images={images}
+          onSelect={handleSelectImageFromPreview}
+          selected={selectedImage}
+        />
+        <Viewer data={selectedImage} />
+        <Validator
+          data={selectedImage}
+          fields={demoFields}
+          onChange={handleValidationFormChange}
+        />
+      </div>
     </div>
   )
 }

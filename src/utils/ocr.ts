@@ -24,7 +24,7 @@ async function recognize(
   const words = data.words.filter((word) =>
     fields.some((y) => word.text.includes(y.anchor)),
   )
-  return { ...img, words }
+  return { ...img, ocr: words.map((x) => ({ box: x.bbox, text: x.line.text })) }
 }
 
 export async function readAll(

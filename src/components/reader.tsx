@@ -87,6 +87,7 @@ function Reader() {
         css={css`
           display: flex;
           flex-direction: row;
+          height: 100%;
           gap: 10px;
           width: 100%;
           margin: 0;

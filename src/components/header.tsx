@@ -1,15 +1,10 @@
 import { css } from '@emotion/react'
-import { faBook, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faGear, faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import birdgirl from '../assets/birdgirl.webp'
 import gillian from '../assets/gillian-birdgirl.webp'
-
-type Prop = {
-  title: string
-  active?: boolean
-  onSelect: (id: string) => void
-}
+import { Settings } from './settings'
 
 export function Header() {
   return (
@@ -47,7 +42,7 @@ export function Header() {
         css={css`
           height: 100px;
           width: auto;
-          margin-right: 50px;
+          margin-right: 200px;
         `}
         alt="birdgirl"
         src={birdgirl}
@@ -66,8 +61,9 @@ export function Header() {
           }
         `}
       >
-        <FontAwesomeIcon icon={faGear} />
+        <Settings />
         <FontAwesomeIcon icon={faBook} />
+        <FontAwesomeIcon icon={faQuestion} />
       </div>
     </div>
   )

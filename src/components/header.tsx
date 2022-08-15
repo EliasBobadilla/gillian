@@ -1,12 +1,9 @@
 import { css } from '@emotion/react'
-import { faBook, faGear, faQuestion } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import birdgirl from '../assets/birdgirl.webp'
 import gillian from '../assets/gillian-birdgirl.webp'
-import { Settings } from './settings'
 
-export function Header() {
+export function Header({ children }) {
   return (
     <div
       css={css`
@@ -16,6 +13,7 @@ export function Header() {
         flex-direction: row;
         height: 100px;
         background-color: #f6cb00;
+        color: #000;
       `}
     >
       <div
@@ -61,9 +59,7 @@ export function Header() {
           }
         `}
       >
-        <Settings />
-        <FontAwesomeIcon icon={faBook} />
-        <FontAwesomeIcon icon={faQuestion} />
+        {children}
       </div>
     </div>
   )

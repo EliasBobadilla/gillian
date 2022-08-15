@@ -49,7 +49,7 @@ export function Validator({ data, fields }: Prop) {
           `}
           key={field.name}
         >
-          {field.label}-{field.name}
+          {field.label}
           <input
             type="text"
             name={formData[field.name]}

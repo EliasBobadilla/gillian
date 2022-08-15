@@ -99,7 +99,7 @@ export function Modal({ children, isOpen, handleClose }) {
         />
         <div
           css={css`
-            width: 60%;
+            width: 50%;
             height: 60%;
             background-color: #000;
             border-radius: 10px;

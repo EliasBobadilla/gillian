@@ -1,15 +1,11 @@
 import { createWorker } from 'tesseract.js'
 
-import { Field, Image, Log } from '../types/ocr'
+import { Data, Field, Log } from '../types/ocr'
 
 // eslint-disable-next-line no-unused-vars
 type Callback = (message: Log) => void
 
-async function recognize(
-  img: Image,
-  fields: Field[],
-  callback: Callback,
-): Promise<Image> {
+async function recognize(img: Data, fields: Field[], callback: Callback): Promise<Data> {
   const worker = createWorker({
     logger: (m) => callback({ id: img.id, progress: m.progress || 0 }),
   })
@@ -28,10 +24,10 @@ async function recognize(
 }
 
 export async function readAll(
-  images: Image[],
+  images: Data[],
   fields: Field[],
   callback?: Callback,
-): Promise<Image[]> {
+): Promise<Data[]> {
   if (!callback) {
     callback = (message) => {
       console.log(message)

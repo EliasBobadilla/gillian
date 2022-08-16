@@ -32,6 +32,8 @@ export function Validator({ data, fields }: Prop) {
         display: flex;
         flex-direction: column;
         gap: 20px;
+        width: 400px;
+        padding: 20px;
       `}
     >
       {fields.map((field) => (
@@ -42,7 +44,6 @@ export function Validator({ data, fields }: Prop) {
             gap: 5px;
             text-transform: uppercase;
             input {
-              width: 100%;
               height: 30px;
               text-transform: uppercase;
             }

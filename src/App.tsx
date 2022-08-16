@@ -88,22 +88,26 @@ function App() {
             display: flex;
             flex-direction: row;
             height: 100%;
-            gap: 10px;
             width: 100%;
-            margin: 0;
           `}
         >
-          <Preview
-            images={images}
-            onSelect={handleSelectImageFromPreview}
-            selected={selectedImage}
-          />
-          <Viewer data={selectedImage} />
-          <Validator
-            data={selectedImage}
-            fields={fields}
-            onChange={handleValidationFormChange}
-          />
+          {images.length > 0 && (
+            <Preview
+              images={images}
+              onSelect={handleSelectImageFromPreview}
+              selected={selectedImage}
+            />
+          )}
+
+          {images.length > 0 && <Viewer data={selectedImage} />}
+
+          {images[0]?.ocr && (
+            <Validator
+              data={selectedImage}
+              fields={fields}
+              onChange={handleValidationFormChange}
+            />
+          )}
         </div>
       </div>
     </>

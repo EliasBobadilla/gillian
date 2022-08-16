@@ -14,17 +14,18 @@ export function Thumb({ title, active, onSelect }: Prop) {
       css={css`
         display: flex;
         flex-direction: column;
-        border: 1px solid #000;
+        border: 0;
         border-radius: 5px;
         padding: 10px;
-        background: ${active ? '#000' : '#fff'};
+        background: ${active ? '#d03501;' : '#fff'};
       `}
       onClick={() => onSelect(title)}
     >
       <FontAwesomeIcon
         css={css`
-          height: 80px;
+          height: 64px;
           width: auto;
+          color: ${active ? '#fff;' : '#000'};
         `}
         icon={faFileInvoice}
       />
@@ -32,6 +33,10 @@ export function Thumb({ title, active, onSelect }: Prop) {
         css={css`
           margin-top: 10px;
           font-weight: bold;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: ${active ? '#fff;' : '#000'};
         `}
       >
         {title}

@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { faQuestion } from '@fortawesome/free-solid-svg-icons'
+import { faCodeBranch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 
@@ -16,7 +16,7 @@ export function Faqs() {
             color: #d03501;
           }
         `}
-        icon={faQuestion}
+        icon={faCodeBranch}
         onClick={() => setIsOpen(true)}
       />
 

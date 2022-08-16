@@ -39,8 +39,22 @@ export function Viewer({ data }: Prop) {
   }, [data])
 
   return (
-    <div>
-      <canvas ref={canvasRef}></canvas>
+    <div
+      css={css`
+        width: calc(100vw - 550px);
+        height: calc(100vh - 100px);
+        overflow: scroll;
+        margin: 0;
+        padding: 0;
+      `}
+    >
+      <canvas
+        css={css`
+          width: -webkit-fill-available;
+          height: auto;
+        `}
+        ref={canvasRef}
+      ></canvas>
     </div>
   )
 }

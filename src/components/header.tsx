@@ -40,7 +40,6 @@ export function Header({ children }) {
         css={css`
           height: 100px;
           width: auto;
-          margin-right: 200px;
         `}
         alt="birdgirl"
         src={birdgirl}

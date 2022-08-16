@@ -11,7 +11,18 @@ type Prop = {
 
 export function Preview({ images, selected, onSelect }: Prop) {
   return (
-    <div css={containerStyle}>
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        background-color: #f6cb00;
+        padding: 15px;
+        height: calc(100vh - 130px);
+        overflow-y: scroll;
+        max-width: 100px;
+      `}
+    >
       {images.map((img) => (
         <Thumb
           key={img.id}
@@ -23,13 +34,3 @@ export function Preview({ images, selected, onSelect }: Prop) {
     </div>
   )
 }
-
-const containerStyle = css`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 10px;
-  width: 120px;
-`

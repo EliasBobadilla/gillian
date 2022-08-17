@@ -1,10 +1,11 @@
 import { css, Global } from '@emotion/react'
-import { useState } from 'react'
+import { faCodeBranch, faFloppyDisk, faGlasses } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useEffect, useState } from 'react'
 
-import { Faqs } from './components/faqs'
 import { Header } from './components/header'
+import { NotSupported } from './components/notSupported'
 import { Preview } from './components/preview'
-import { Reader } from './components/reader'
 import { Settings } from './components/settings'
 import { Uploader } from './components/uploader'
 import { Validator } from './components/validator'
@@ -33,9 +34,16 @@ const selectedInitialState: Data = {
 }
 
 function App() {
+  const [notSupportedSize, setNotSupportedSize] = useState(false)
   const [images, setImages] = useState<Data[]>([])
   const [fields, setFields] = useState<Field[]>(fieldsInitialState)
   const [selectedImage, setSelectedImage] = useState<Data>(selectedInitialState)
+
+  useEffect(() => {
+    const { innerWidth } = window
+    if (innerWidth <= 1000) setNotSupportedSize(true)
+    console.log('-------', innerWidth)
+  }, [])
 
   const handleChange = async (values: Data[]) => {
     setImages(values)
@@ -62,56 +70,66 @@ function App() {
 
   return (
     <>
-      <Global
-        styles={css`
-          html,
-          body {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-            font-family: 'Alfa Slab One', sans-serif;
-            color: #fff;
-          }
+      <Global styles={globalstyles} />
+      {notSupportedSize && <NotSupported />}
+      <Header>
+        <Settings fields={fields} onSave={setFields} />
+        <Uploader onUpload={handleChange} />
+        <a href="#">
+          <FontAwesomeIcon icon={faGlasses} onClick={handleClick} />
+        </a>
+        <a href="#">
+          <FontAwesomeIcon icon={faFloppyDisk} onClick={handleClick} />
+        </a>
+        <a href="https://github.com/EliasBobadilla/gillian" target="blank">
+          <FontAwesomeIcon icon={faCodeBranch} />
+        </a>
+      </Header>
+      <div
+        css={css`
+          display: flex;
+          flex-direction: row;
+          height: 100%;
+          width: 100%;
         `}
-      />
-      <div>
-        <Header>
-          <Settings fields={fields} onSave={setFields} />
-          <Uploader onUpload={handleChange} />
-          <Reader onRead={handleClick} />
-          <Faqs />
-        </Header>
-        <div
-          css={css`
-            display: flex;
-            flex-direction: row;
-            height: 100%;
-            width: 100%;
-          `}
-        >
-          {images.length > 0 && (
-            <Preview
-              images={images}
-              onSelect={handleSelectImageFromPreview}
-              selected={selectedImage}
-            />
-          )}
+      >
+        {images.length > 0 && (
+          <Preview
+            images={images}
+            onSelect={handleSelectImageFromPreview}
+            selected={selectedImage}
+          />
+        )}
 
-          {images.length > 0 && <Viewer data={selectedImage} />}
+        {images.length > 0 && <Viewer data={selectedImage} />}
 
-          {images[0]?.ocr && (
-            <Validator
-              data={selectedImage}
-              fields={fields}
-              onChange={handleValidationFormChange}
-            />
-          )}
-        </div>
+        {images[0]?.ocr && (
+          <Validator
+            data={selectedImage}
+            fields={fields}
+            onChange={handleValidationFormChange}
+          />
+        )}
       </div>
     </>
   )
 }
+
+const globalstyles = css`
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    font-family: 'Alfa Slab One', sans-serif;
+    color: #fff;
+  }
+  a {
+    color: #000;
+  }
+  a:hover {
+    color: #d03501;
+  }
+`
 
 export default App

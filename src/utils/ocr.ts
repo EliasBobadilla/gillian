@@ -1,9 +1,25 @@
 import { createWorker } from 'tesseract.js'
 
-import { Data, Field, Log } from '../types/ocr'
+import { Data, Field, Log, Ocr } from '../types/ocr'
 
 // eslint-disable-next-line no-unused-vars
 type Callback = (message: Log) => void
+
+export function cleanOcr(field: Field, text: string) {
+  const index = text.indexOf(field.anchor)
+  let value = text.substring(index, text.length).replace(field.anchor, '')
+
+  switch (field.type) {
+    case 'date':
+      value = value.replace(/[^0-9/-]/g, '')
+      break
+    default:
+      value = value.replace(/[^a-zA-Z ]/g, '')
+      break
+  }
+
+  return value
+}
 
 async function recognize(img: Data, fields: Field[], callback: Callback): Promise<Data> {
   const worker = createWorker({
@@ -17,10 +33,13 @@ async function recognize(img: Data, fields: Field[], callback: Callback): Promis
   const { data } = await worker.recognize(img.image)
   await worker.terminate()
 
-  const words = data.words.filter((word) =>
-    fields.some((y) => word.text.includes(y.anchor)),
-  )
-  return { ...img, ocr: words.map((x) => ({ box: x.bbox, text: x.line.text })) }
+  const words = data.words.map((word) => {
+    const field = fields.find((y) => word.text.includes(y.anchor))
+    if (!field) return undefined
+    return { box: word.bbox, text: cleanOcr(field, word.line.text), field: field } as Ocr
+  })
+
+  return { ...img, ocr: words.filter((word) => word) }
 }
 
 export async function readAll(

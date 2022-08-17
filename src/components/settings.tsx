@@ -25,16 +25,9 @@ export function Settings({ fields, onSave }: Prop) {
 
   return (
     <>
-      <FontAwesomeIcon
-        css={css`
-          cursor: pointer;
-          &:hover {
-            color: #d03501;
-          }
-        `}
-        icon={faGear}
-        onClick={() => setIsOpen(true)}
-      />
+      <a href="#">
+        <FontAwesomeIcon icon={faGear} onClick={() => setIsOpen(true)} />
+      </a>
 
       {isOpen && (
         <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>

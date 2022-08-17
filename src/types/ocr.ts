@@ -13,12 +13,13 @@ export type Ocr = {
     x1: number
     y1: number
   }
+  field: Field
 }
 
 export type Data = {
   id: string
   image: string
-  ocr?: Ocr[]
+  ocr?: (Ocr | undefined)[]
 }
 
 export type Log = {

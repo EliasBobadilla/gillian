@@ -50,7 +50,7 @@ export function Header({ children }) {
           align-items: center;
           justify-content: flex-end;
           flex-direction: row;
-          gap: 25px;
+          gap: 30px;
           margin-right: 50px;
           svg {
             height: 40px;

@@ -39,7 +39,8 @@ export function Uploader({ onUpload }: Prop) {
   }
 
   return (
-    <div
+    <a
+      href="#"
       css={css`
         position: relative;
         overflow: hidden;
@@ -52,13 +53,10 @@ export function Uploader({ onUpload }: Prop) {
           opacity: 0;
           cursor: pointer;
         }
-        &:hover {
-          color: #d03501;
-        }
       `}
     >
       <input type="file" onChange={handleChange} multiple />
       <FontAwesomeIcon icon={faUpload} />
-    </div>
+    </a>
   )
 }

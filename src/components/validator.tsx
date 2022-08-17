@@ -2,6 +2,7 @@ import { css } from '@emotion/react'
 import { useEffect, useState } from 'react'
 
 import { Data, Field } from '../types/ocr'
+import { cleanOcr } from '../utils/ocr'
 
 type Prop = {
   data: Data
@@ -16,7 +17,7 @@ export function Validator({ data, fields }: Prop) {
     let model: { [key: string]: string } = {}
     fields.forEach((field) => {
       const ocr = data.ocr?.find((x) => x.text.includes(field.anchor))
-      if (ocr) model[field.name] = ocr.text // TODO: create special functions to clean data
+      if (ocr) model[field.name] = cleanOcr(field, ocr.text)
     })
     setFormData(model)
   }, [data, fields])
@@ -24,6 +25,8 @@ export function Validator({ data, fields }: Prop) {
   const handleChange = (property: string, value: string) => {
     const model = { ...formData, [property]: value }
     setFormData(model)
+    const newData = { ...data, ocr }
+    console.log('***************>', model)
   }
 
   return (

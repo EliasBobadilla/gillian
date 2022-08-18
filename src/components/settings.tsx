@@ -31,7 +31,7 @@ export function Settings({ fields, onSave }: Prop) {
       </a>
 
       {isOpen && (
-        <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
+        <Modal handleClose={() => setIsOpen(false)}>
           <div
             css={css`
               display: flex;

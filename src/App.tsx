@@ -69,7 +69,7 @@ function App() {
   }
 
   const handleValidationFormChange = (data: Data) => {
-    let model = [...images]
+    const model = [...images]
     model[data.index] = data
     setImages(model)
     setSelectedImage(data)

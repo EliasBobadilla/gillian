@@ -4,7 +4,11 @@ import birdgirl from '../assets/birdgirl.webp'
 import gillian from '../assets/gillian-birdgirl.webp'
 import colors from '../utils/colors'
 
-export function Header({ children }) {
+type Prop = {
+  children: JSX.Element[]
+}
+
+export function Header({ children }: Prop) {
   return (
     <div
       css={css`

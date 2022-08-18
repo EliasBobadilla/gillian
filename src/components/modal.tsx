@@ -10,8 +10,14 @@ function createWrapperAndAppendToBody(wrapperId: string) {
   return wrapperElement
 }
 
-function ReactPortal({ children, wrapperId = 'react-portal' }) {
-  const [wrapperElement, setWrapperElement] = useState(null)
+function ReactPortal({
+  children,
+  wrapperId = 'react-portal',
+}: {
+  children: JSX.Element
+  wrapperId: string
+}) {
+  const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>(null)
 
   useLayoutEffect(() => {
     let element = document.getElementById(wrapperId)
@@ -24,7 +30,7 @@ function ReactPortal({ children, wrapperId = 'react-portal' }) {
 
     return () => {
       // delete the programatically created element
-      if (systemCreated && element.parentNode) {
+      if (systemCreated && element?.parentNode) {
         element.parentNode.removeChild(element)
       }
     }
@@ -35,10 +41,15 @@ function ReactPortal({ children, wrapperId = 'react-portal' }) {
   return createPortal(children, wrapperElement)
 }
 
-export function Modal({ children, isOpen, handleClose }) {
+type Prop = {
+  children: JSX.Element
+  handleClose: () => void
+}
+export function Modal({ children, handleClose }: Prop) {
   const nodeRef = useRef(null)
   useEffect(() => {
-    const closeOnEscapeKey = (e) => (e.key === 'Escape' ? handleClose() : null)
+    const closeOnEscapeKey = (e: KeyboardEvent) =>
+      e.key === 'Escape' ? handleClose() : null
     document.body.addEventListener('keydown', closeOnEscapeKey)
     return () => {
       document.body.removeEventListener('keydown', closeOnEscapeKey)

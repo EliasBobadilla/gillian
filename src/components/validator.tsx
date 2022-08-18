@@ -13,7 +13,7 @@ export function Validator({ data, fields, onChange }: Prop) {
   const [formData, setFormData] = useState<{ [key: string]: string }>({})
 
   useEffect(() => {
-    let model: { [key: string]: string } = {}
+    const model: { [key: string]: string } = {}
     data.ocr?.forEach((ocr) => {
       if (ocr) model[ocr.field.name] = ocr.text
     })

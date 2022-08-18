@@ -1,5 +1,6 @@
 import { css, keyframes } from '@emotion/react'
 
+import colors from '../utils/colors'
 const animation = keyframes`
     from, 0%, to {
         transform: rotate(0);
@@ -25,7 +26,7 @@ export function Loading({ isLoading }: Prop) {
         height: 100vh;
         position: fixed;
         inset: 0;
-        background-color: rgba(246, 203, 0, 0.7);
+        background-color: ${colors.yellow7};
         display: flex;
         flex-direction: column;
         align-items: center;

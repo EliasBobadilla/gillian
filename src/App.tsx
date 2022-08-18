@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 
 import { Header } from './components/header'
+import { Loading } from './components/loading'
 import { NotSupported } from './components/notSupported'
 import { Preview } from './components/preview'
 import { Settings } from './components/settings'
@@ -11,6 +12,7 @@ import { Uploader } from './components/uploader'
 import { Validator } from './components/validator'
 import { Viewer } from './components/viewer'
 import { Data, Field } from './types/ocr'
+import colors from './utils/colors'
 import { readAll } from './utils/ocr'
 
 const fieldsInitialState: Field[] = [
@@ -29,6 +31,7 @@ const fieldsInitialState: Field[] = [
 ]
 
 const selectedInitialState: Data = {
+  index: 0,
   id: '',
   image: '',
 }
@@ -38,11 +41,11 @@ function App() {
   const [images, setImages] = useState<Data[]>([])
   const [fields, setFields] = useState<Field[]>(fieldsInitialState)
   const [selectedImage, setSelectedImage] = useState<Data>(selectedInitialState)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const { innerWidth } = window
     if (innerWidth <= 1000) setNotSupportedSize(true)
-    console.log('-------', innerWidth)
   }, [])
 
   const handleChange = async (values: Data[]) => {
@@ -52,24 +55,29 @@ function App() {
 
   const handleClick = async () => {
     if (!images.length) return
+    setLoading(true)
     const ocr = await readAll(images, fields)
-    console.log('OCR PROCESS END -------------->', ocr)
     setImages(ocr)
+    setSelectedImage(ocr[0])
+    setLoading(false)
   }
 
-  const handleSelectImageFromPreview = (id: string) => {
-    const selected = images.find((x) => x.id === id)
+  const handleSelectImageFromPreview = (index: number) => {
+    const selected = images[index]
     if (!selected) return
     setSelectedImage(selected)
-    console.log('selected ------>', selected)
   }
 
   const handleValidationFormChange = (data: Data) => {
-    console.log('changed ----->', data)
+    let model = [...images]
+    model[data.index] = data
+    setImages(model)
+    setSelectedImage(data)
   }
 
   return (
     <>
+      <Loading isLoading={loading} />
       <Global styles={globalstyles} />
       {notSupportedSize && <NotSupported />}
       <Header>
@@ -97,7 +105,7 @@ function App() {
           <Preview
             images={images}
             onSelect={handleSelectImageFromPreview}
-            selected={selectedImage}
+            selected={selectedImage.id}
           />
         )}
 
@@ -120,15 +128,23 @@ const globalstyles = css`
   body {
     margin: 0;
     padding: 0;
-    background-color: #000;
+    background-color: ${colors.black};
     font-family: 'Alfa Slab One', sans-serif;
-    color: #fff;
+    color: ${colors.white};
   }
   a {
-    color: #000;
+    color: ${colors.black};
   }
   a:hover {
-    color: #d03501;
+    color: ${colors.red};
+  }
+  input {
+    font-size: 1.1em;
+  }
+  button {
+    background-color: transparent;
+    border-width: 0;
+    padding: 0;
   }
 `
 

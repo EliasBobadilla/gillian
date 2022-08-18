@@ -2,13 +2,16 @@ import { css } from '@emotion/react'
 import { faFileInvoice } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import colors from '../utils/colors'
+
 type Prop = {
   title: string
+  position: number
   active?: boolean
-  onSelect: (id: string) => void
+  onSelect: (id: number) => void
 }
 
-export function Thumb({ title, active, onSelect }: Prop) {
+export function Thumb({ title, position, active, onSelect }: Prop) {
   return (
     <button
       css={css`
@@ -17,15 +20,15 @@ export function Thumb({ title, active, onSelect }: Prop) {
         border: 0;
         border-radius: 5px;
         padding: 10px;
-        background: ${active ? '#d03501;' : '#fff'};
+        background: ${active ? colors.red : colors.white};
       `}
-      onClick={() => onSelect(title)}
+      onClick={() => onSelect(position)}
     >
       <FontAwesomeIcon
         css={css`
           height: 64px;
           width: auto;
-          color: ${active ? '#fff;' : '#000'};
+          color: ${active ? colors.white : colors.black};
         `}
         icon={faFileInvoice}
       />
@@ -36,7 +39,7 @@ export function Thumb({ title, active, onSelect }: Prop) {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          color: ${active ? '#fff;' : '#000'};
+          color: ${active ? colors.white : colors.black};
         `}
       >
         {title}

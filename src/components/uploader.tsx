@@ -30,9 +30,10 @@ export function Uploader({ onUpload }: Prop) {
     if (!fileValidation(files)) return
 
     const loadedImages = await Promise.all(
-      [...files!].map(async (file: File) => ({
+      [...files!].map(async (file: File, index: number) => ({
         id: file.name,
         image: await getBase64(file),
+        index,
       })),
     )
     onUpload(loadedImages)

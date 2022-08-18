@@ -23,7 +23,7 @@ export function cleanOcr(field: Field, text: string) {
 
 async function recognize(img: Data, fields: Field[], callback: Callback): Promise<Data> {
   const worker = createWorker({
-    logger: (m) => callback({ id: img.id, progress: m.progress || 0 }),
+    logger: (m) => callback({ image: img.id, progress: m.progress || 0 }),
   })
 
   await worker.load()
@@ -33,13 +33,25 @@ async function recognize(img: Data, fields: Field[], callback: Callback): Promis
   const { data } = await worker.recognize(img.image)
   await worker.terminate()
 
-  const words = data.words.map((word) => {
-    const field = fields.find((y) => word.text.includes(y.anchor))
-    if (!field) return undefined
-    return { box: word.bbox, text: cleanOcr(field, word.line.text), field: field } as Ocr
-  })
+  let index = -1
+  let ocr = []
 
-  return { ...img, ocr: words.filter((word) => word) }
+  for (let i = 0; i < data.words.length; i++) {
+    const word = data.words[i]
+    const field = fields.find((y) => word.text.includes(y.anchor))
+    if (!field) continue
+
+    index++
+    const model: Ocr = {
+      index: index,
+      box: word.bbox,
+      text: cleanOcr(field, word.line.text),
+      field,
+    }
+    ocr.push(model)
+  }
+
+  return { ...img, ocr }
 }
 
 export async function readAll(

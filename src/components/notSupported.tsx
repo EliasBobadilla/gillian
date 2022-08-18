@@ -1,11 +1,12 @@
 import { css } from '@emotion/react'
 
+import colors from '../utils/colors'
 export function NotSupported() {
   return (
     <div
       css={css`
         padding: 50px;
-        background-color: #d03501;
+        background-color: ${colors.red};
         font-size: 2em;
         text-align: center;
       `}

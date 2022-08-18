@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 
 import { Field } from '../types/ocr'
+import colors from '../utils/colors'
 import { Modal } from './modal'
 
 type Prop = {
@@ -35,7 +36,7 @@ export function Settings({ fields, onSave }: Prop) {
             css={css`
               display: flex;
               flex-direction: column;
-              color: #fff;
+              color: ${colors.white};
               width: 80%;
               gap: 20px;
             `}
@@ -44,7 +45,7 @@ export function Settings({ fields, onSave }: Prop) {
               css={css`
                 display: flex;
                 flex-direction: column;
-                color: #fff;
+                color: ${colors.white};
                 font-size: 1.3em;
                 width: 100%;
                 gap: 10px;
@@ -63,7 +64,7 @@ export function Settings({ fields, onSave }: Prop) {
             </label>
             <button
               css={css`
-                background-color: #f6cb00;
+                background-color: ${colors.yellow};
                 border-width: 0;
                 padding: 0;
                 height: 50px;

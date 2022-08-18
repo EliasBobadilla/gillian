@@ -2,6 +2,7 @@ import { css } from '@emotion/react'
 import { useEffect, useRef } from 'react'
 
 import { Data } from '../types/ocr'
+import colors from '../utils/colors'
 
 type Prop = {
   data: Data
@@ -21,7 +22,7 @@ export function Viewer({ data }: Prop) {
       canvas.width = image.width
       canvas.height = image.height
       ctx.drawImage(image, 0, 0)
-      ctx.fillStyle = '#d1fe0695'
+      ctx.fillStyle = colors.yellow7
 
       if (data.ocr) {
         data.ocr.forEach((r) => {

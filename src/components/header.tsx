@@ -2,6 +2,7 @@ import { css } from '@emotion/react'
 
 import birdgirl from '../assets/birdgirl.webp'
 import gillian from '../assets/gillian-birdgirl.webp'
+import colors from '../utils/colors'
 
 export function Header({ children }) {
   return (
@@ -12,8 +13,8 @@ export function Header({ children }) {
         justify-content: space-between;
         flex-direction: row;
         height: 100px;
-        background-color: #f6cb00;
-        color: #000;
+        background-color: ${colors.yellow};
+        color: ${colors.black};
       `}
     >
       <div

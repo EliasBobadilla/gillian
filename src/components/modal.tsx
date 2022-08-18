@@ -2,6 +2,7 @@ import { css } from '@emotion/react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
+import colors from '../utils/colors'
 function createWrapperAndAppendToBody(wrapperId: string) {
   const wrapperElement = document.createElement('div')
   wrapperElement.setAttribute('id', wrapperId)
@@ -52,7 +53,7 @@ export function Modal({ children, isOpen, handleClose }) {
           height: 100vh;
           position: fixed;
           inset: 0;
-          background-color: rgba(246, 203, 0, 0.9);
+          background-color: ${colors.yellow9};
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -65,9 +66,6 @@ export function Modal({ children, isOpen, handleClose }) {
       >
         <button
           css={css`
-            background-color: transparent;
-            border-width: 0;
-            padding: 0;
             position: absolute;
             right: 20px;
             top: 20px;
@@ -85,8 +83,8 @@ export function Modal({ children, isOpen, handleClose }) {
               content: '';
               height: 33px;
               width: 5px;
-              background-color: #333;
-              box-shadow: rgba(60, 60, 58, 0.9) 0px 10px 25px;
+              background-color: ${colors.gray};
+              box-shadow: ${colors.black9} 0 10px 30px;
             }
             &:before {
               transform: rotate(45deg);
@@ -101,7 +99,7 @@ export function Modal({ children, isOpen, handleClose }) {
           css={css`
             width: 50%;
             height: 60%;
-            background-color: #000;
+            background-color: ${colors.black};
             border-radius: 10px;
             display: flex;
             align-items: center;

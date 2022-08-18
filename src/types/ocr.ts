@@ -7,22 +7,24 @@ export type Field = {
 
 export type Ocr = {
   text: string
+  field: Field
+  index: number
   box: {
     x0: number
     y0: number
     x1: number
     y1: number
   }
-  field: Field
 }
 
 export type Data = {
+  index: number
   id: string
   image: string
-  ocr?: (Ocr | undefined)[]
+  ocr?: Ocr[]
 }
 
 export type Log = {
-  id: string
+  image: string
   progress: number
 }

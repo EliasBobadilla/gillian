@@ -16,8 +16,8 @@ export function NotSupported() {
         font-size: 2em;
         text-align: center;
         max-width: 80%;
-        height: 48%;
-        padding: 19px;
+        height: 55%;
+        padding: 20px 15px 0 15px;
         color: ${colors.black};
         border-radius: 5px;
 

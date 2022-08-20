@@ -1,4 +1,4 @@
-import { css, Global } from '@emotion/react'
+import { css } from '@emotion/react'
 import { faCodeBranch, faFloppyDisk, faGlasses } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
@@ -12,7 +12,6 @@ import { Uploader } from './components/uploader'
 import { Validator } from './components/validator'
 import { Viewer } from './components/viewer'
 import { Data, Field } from './types/ocr'
-import colors from './utils/colors'
 import { readAll } from './utils/ocr'
 
 const fieldsInitialState: Field[] = [
@@ -75,11 +74,11 @@ function App() {
     setSelectedImage(data)
   }
 
-  return (
+  return notSupportedSize ? (
+    <NotSupported />
+  ) : (
     <>
       <Loading isLoading={loading} />
-      <Global styles={globalstyles} />
-      {notSupportedSize && <NotSupported />}
       <Header>
         <Settings fields={fields} onSave={setFields} />
         <Uploader onUpload={handleChange} />
@@ -122,30 +121,5 @@ function App() {
     </>
   )
 }
-
-const globalstyles = css`
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: ${colors.black};
-    font-family: 'Alfa Slab One', sans-serif;
-    color: ${colors.white};
-  }
-  a {
-    color: ${colors.black};
-  }
-  a:hover {
-    color: ${colors.red};
-  }
-  input {
-    font-size: 1.1em;
-  }
-  button {
-    background-color: transparent;
-    border-width: 0;
-    padding: 0;
-  }
-`
 
 export default App

@@ -1,7 +1,7 @@
 export type Field = {
   label: string
   name: string
-  type: string
+  type: 'text' | 'date'
   anchor: string
 }
 

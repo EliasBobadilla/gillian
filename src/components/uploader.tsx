@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChangeEvent } from 'react'
 
 import { Data } from '../types/ocr'
-import { getBase64 } from '../utils/image'
+import { getBase64 } from '../utils/data'
 
 type Prop = {
   onUpload: (values: Data[]) => void

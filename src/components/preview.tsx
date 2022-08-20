@@ -12,7 +12,7 @@ type Prop = {
 
 export function Preview({ images, selected, onSelect }: Prop) {
   return (
-    <div
+    <aside
       css={css`
         display: flex;
         flex-direction: column;
@@ -33,6 +33,6 @@ export function Preview({ images, selected, onSelect }: Prop) {
           active={selected === img.id}
         />
       ))}
-    </div>
+    </aside>
   )
 }

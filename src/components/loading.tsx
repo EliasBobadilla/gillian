@@ -15,41 +15,45 @@ const animation = keyframes`
     }
 `
 type Prop = {
+  children: JSX.Element[]
   isLoading: boolean
 }
 
-export function Loading({ isLoading }: Prop) {
-  return isLoading ? (
-    <div
-      css={css`
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        inset: 0;
-        background-color: ${colors.yellow7};
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease-in-out;
-        overflow: hidden;
-        z-index: 9999;
+export function Loading({ children, isLoading }: Prop) {
+  return (
+    <div>
+      {isLoading && (
+        <div
+          css={css`
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            inset: 0;
+            background-color: ${colors.yellow7};
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            z-index: 9999;
 
-        &:after {
-          content: ' ';
-          display: block;
-          border-radius: 50%;
-          width: 0;
-          height: 0;
-          margin: 8px;
-          box-sizing: border-box;
-          border: 32px solid #000;
-          border-color: #000 transparent #000 transparent;
-          animation: ${animation} 1.2s infinite;
-        }
-      `}
-    />
-  ) : (
-    <></>
+            &:after {
+              content: ' ';
+              display: block;
+              border-radius: 50%;
+              width: 0;
+              height: 0;
+              margin: 8px;
+              box-sizing: border-box;
+              border: 32px solid #000;
+              border-color: #000 transparent #000 transparent;
+              animation: ${animation} 1.2s infinite;
+            }
+          `}
+        />
+      )}
+      {children}
+    </div>
   )
 }

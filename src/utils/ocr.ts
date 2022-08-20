@@ -18,7 +18,7 @@ export function cleanOcr(field: Field, text: string) {
       break
   }
 
-  return value
+  return value.trim()
 }
 
 async function recognize(img: Data, fields: Field[], callback: Callback): Promise<Data> {
@@ -34,7 +34,7 @@ async function recognize(img: Data, fields: Field[], callback: Callback): Promis
   await worker.terminate()
 
   let index = -1
-  let ocr = []
+  const ocr = []
 
   for (let i = 0; i < data.words.length; i++) {
     const word = data.words[i]

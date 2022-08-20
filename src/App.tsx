@@ -12,6 +12,7 @@ import { Uploader } from './components/uploader'
 import { Validator } from './components/validator'
 import { Viewer } from './components/viewer'
 import { Data, Field } from './types/ocr'
+import { buildCSV } from './utils/data'
 import { readAll } from './utils/ocr'
 
 const fieldsInitialState: Field[] = [
@@ -47,12 +48,12 @@ function App() {
     if (innerWidth <= 1000) setNotSupportedSize(true)
   }, [])
 
-  const handleChange = async (values: Data[]) => {
+  const handleOnUpload = async (values: Data[]) => {
     setImages(values)
     setSelectedImage(values[0])
   }
 
-  const handleClick = async () => {
+  const handleOnRead = async () => {
     if (!images.length) return
     setLoading(true)
     const ocr = await readAll(images, fields)
@@ -61,38 +62,41 @@ function App() {
     setLoading(false)
   }
 
-  const handleSelectImageFromPreview = (index: number) => {
+  const handleOnSelectImage = (index: number) => {
     const selected = images[index]
     if (!selected) return
     setSelectedImage(selected)
   }
 
-  const handleValidationFormChange = (data: Data) => {
+  const handleOnFormChange = (data: Data) => {
     const model = [...images]
     model[data.index] = data
     setImages(model)
     setSelectedImage(data)
   }
 
+  const handleOnSave = async () => {
+    buildCSV(images)
+  }
+
   return notSupportedSize ? (
     <NotSupported />
   ) : (
-    <>
-      <Loading isLoading={loading} />
+    <Loading isLoading={loading}>
       <Header>
         <Settings fields={fields} onSave={setFields} />
-        <Uploader onUpload={handleChange} />
+        <Uploader onUpload={handleOnUpload} />
         <a href="#">
-          <FontAwesomeIcon icon={faGlasses} onClick={handleClick} />
+          <FontAwesomeIcon icon={faGlasses} onClick={handleOnRead} />
         </a>
         <a href="#">
-          <FontAwesomeIcon icon={faFloppyDisk} onClick={handleClick} />
+          <FontAwesomeIcon icon={faFloppyDisk} onClick={handleOnSave} />
         </a>
         <a href="https://github.com/EliasBobadilla/gillian" target="blank">
           <FontAwesomeIcon icon={faCodeBranch} />
         </a>
       </Header>
-      <div
+      <main
         css={css`
           display: flex;
           flex-direction: row;
@@ -103,7 +107,7 @@ function App() {
         {images.length > 0 && (
           <Preview
             images={images}
-            onSelect={handleSelectImageFromPreview}
+            onSelect={handleOnSelectImage}
             selected={selectedImage.id}
           />
         )}
@@ -111,14 +115,10 @@ function App() {
         {images.length > 0 && <Viewer data={selectedImage} />}
 
         {images[0]?.ocr && (
-          <Validator
-            data={selectedImage}
-            fields={fields}
-            onChange={handleValidationFormChange}
-          />
+          <Validator data={selectedImage} fields={fields} onChange={handleOnFormChange} />
         )}
-      </div>
-    </>
+      </main>
+    </Loading>
   )
 }
 

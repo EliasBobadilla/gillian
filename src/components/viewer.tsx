@@ -40,7 +40,7 @@ export function Viewer({ data }: Prop) {
   }, [data])
 
   return (
-    <div
+    <figure
       css={css`
         width: calc(100vw - 550px);
         height: calc(100vh - 100px);
@@ -56,6 +56,6 @@ export function Viewer({ data }: Prop) {
         `}
         ref={canvasRef}
       ></canvas>
-    </div>
+    </figure>
   )
 }

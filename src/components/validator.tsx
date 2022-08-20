@@ -29,38 +29,40 @@ export function Validator({ data, fields, onChange }: Prop) {
   }
 
   return (
-    <form
-      css={css`
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        width: 400px;
-        padding: 20px;
-      `}
-    >
-      {fields.map((field) => (
-        <label
-          css={css`
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            text-transform: uppercase;
-            input {
-              height: 30px;
+    <section>
+      <form
+        css={css`
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          width: 400px;
+          padding: 20px;
+        `}
+      >
+        {fields.map((field) => (
+          <label
+            css={css`
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
               text-transform: uppercase;
-            }
-          `}
-          key={field.name}
-        >
-          {field.label}
-          <input
-            type="text"
-            name={formData[field.name]}
-            value={formData[field.name]}
-            onChange={(e) => handleChange(field.name, e.target.value)}
-          />
-        </label>
-      ))}
-    </form>
+              input {
+                height: 30px;
+                text-transform: uppercase;
+              }
+            `}
+            key={field.name}
+          >
+            {field.label}
+            <input
+              type="text"
+              name={formData[field.name]}
+              value={formData[field.name]}
+              onChange={(e) => handleChange(field.name, e.target.value)}
+            />
+          </label>
+        ))}
+      </form>
+    </section>
   )
 }

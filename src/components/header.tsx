@@ -10,7 +10,7 @@ type Prop = {
 
 export function Header({ children }: Prop) {
   return (
-    <div
+    <header
       css={css`
         display: flex;
         align-items: center;
@@ -49,7 +49,7 @@ export function Header({ children }: Prop) {
         alt="birdgirl"
         src={birdgirl}
       />
-      <div
+      <nav
         css={css`
           display: flex;
           align-items: center;
@@ -64,7 +64,7 @@ export function Header({ children }: Prop) {
         `}
       >
         {children}
-      </div>
-    </div>
+      </nav>
+    </header>
   )
 }

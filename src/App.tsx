@@ -83,6 +83,9 @@ function App() {
     <NotSupported />
   ) : (
     <Loading isLoading={loading}>
+      <a id="gtm-gillian-github" href="https://github.com/EliasBobadilla/gillian">
+        github GTM test
+      </a>
       <Header>
         <Settings id="gtm-gillian-settings" fields={fields} onSave={setFields} />
         <Uploader id="gtm-gillian-uploader" onUpload={handleOnUpload} />

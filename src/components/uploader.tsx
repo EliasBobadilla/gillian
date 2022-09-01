@@ -3,10 +3,11 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChangeEvent } from 'react'
 
+import { BaseElement } from '../types/element'
 import { Data } from '../types/ocr'
 import { getBase64 } from '../utils/data'
 
-type Prop = {
+interface Prop extends BaseElement {
   onUpload: (values: Data[]) => void
 }
 

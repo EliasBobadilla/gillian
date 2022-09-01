@@ -1,10 +1,11 @@
 import { css } from '@emotion/react'
 
+import { BaseElement } from '../types/element'
 import { Data } from '../types/ocr'
 import colors from '../utils/colors'
 import { Thumb } from './thumb'
 
-type Prop = {
+interface Prop extends BaseElement {
   images: Data[]
   selected: string
   onSelect: (id: number) => void

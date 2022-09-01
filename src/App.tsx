@@ -84,15 +84,19 @@ function App() {
   ) : (
     <Loading isLoading={loading}>
       <Header>
-        <Settings fields={fields} onSave={setFields} />
-        <Uploader onUpload={handleOnUpload} />
-        <a href="#">
+        <Settings id="gtm-gillian-settings" fields={fields} onSave={setFields} />
+        <Uploader id="gtm-gillian-uploader" onUpload={handleOnUpload} />
+        <a id="gtm-gillian-read" href="#">
           <FontAwesomeIcon icon={faGlasses} onClick={handleOnRead} />
         </a>
-        <a href="#">
+        <a id="gtm-gillian-save" href="#">
           <FontAwesomeIcon icon={faFloppyDisk} onClick={handleOnSave} />
         </a>
-        <a href="https://github.com/EliasBobadilla/gillian" target="blank">
+        <a
+          id="gtm-gillian-github"
+          href="https://github.com/EliasBobadilla/gillian"
+          target="blank"
+        >
           <FontAwesomeIcon icon={faCodeBranch} />
         </a>
       </Header>

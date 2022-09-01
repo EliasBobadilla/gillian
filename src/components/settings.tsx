@@ -3,11 +3,12 @@ import { faGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 
+import { BaseElement } from '../types/element'
 import { Field } from '../types/ocr'
 import colors from '../utils/colors'
 import { Modal } from './modal'
 
-type Prop = {
+interface Prop extends BaseElement {
   fields: Field[]
   onSave: (fields: Field[]) => void
 }

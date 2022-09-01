@@ -11,7 +11,7 @@ interface Prop extends BaseElement {
   onUpload: (values: Data[]) => void
 }
 
-export function Uploader({ onUpload }: Prop) {
+export function Uploader({ onUpload, id }: Prop) {
   const fileValidation = (files: FileList | null) => {
     if (!files || !files.length) {
       console.error('Something is wrong') // TODO: create alert box
@@ -42,6 +42,7 @@ export function Uploader({ onUpload }: Prop) {
 
   return (
     <a
+      id={id}
       href="#"
       css={css`
         position: relative;

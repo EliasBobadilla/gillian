@@ -12,7 +12,7 @@ interface Prop extends BaseElement {
   fields: Field[]
   onSave: (fields: Field[]) => void
 }
-export function Settings({ fields, onSave }: Prop) {
+export function Settings({ fields, onSave, id }: Prop) {
   const [isOpen, setIsOpen] = useState(false)
   const [currentFields, setCurrentFields] = useState<string>('')
 
@@ -27,7 +27,7 @@ export function Settings({ fields, onSave }: Prop) {
 
   return (
     <>
-      <a href="#">
+      <a id={id} href="#">
         <FontAwesomeIcon icon={faGear} onClick={() => setIsOpen(true)} />
       </a>
 

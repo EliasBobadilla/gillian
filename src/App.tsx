@@ -93,11 +93,11 @@ function App() {
           <FontAwesomeIcon icon={faFloppyDisk} onClick={handleOnSave} />
         </a>
         <a
-          id="gtm-gillian-github"
+          id="gtm-gillian-github2"
           href="https://github.com/EliasBobadilla/gillian"
           target="blank"
         >
-          <FontAwesomeIcon icon={faCodeBranch} />
+          <FontAwesomeIcon id="gtm-gillian-github" icon={faCodeBranch} />
         </a>
       </Header>
       <main

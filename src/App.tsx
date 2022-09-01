@@ -83,24 +83,25 @@ function App() {
     <NotSupported />
   ) : (
     <Loading isLoading={loading}>
-      <a id="gtm-gillian-github" href="https://github.com/EliasBobadilla/gillian">
-        github GTM test
-      </a>
       <Header>
         <Settings id="gtm-gillian-settings" fields={fields} onSave={setFields} />
         <Uploader id="gtm-gillian-uploader" onUpload={handleOnUpload} />
-        <a id="gtm-gillian-read" href="#">
-          <FontAwesomeIcon icon={faGlasses} onClick={handleOnRead} />
+        <a href="#">
+          <FontAwesomeIcon
+            id="gtm-gillian-read"
+            icon={faGlasses}
+            onClick={handleOnRead}
+          />
         </a>
-        <a id="gtm-gillian-save" href="#">
-          <FontAwesomeIcon icon={faFloppyDisk} onClick={handleOnSave} />
+        <a href="#">
+          <FontAwesomeIcon
+            id="gtm-gillian-save"
+            icon={faFloppyDisk}
+            onClick={handleOnSave}
+          />
         </a>
-        <a
-          id="gtm-gillian-github"
-          href="https://github.com/EliasBobadilla/gillian"
-          target="blank"
-        >
-          <FontAwesomeIcon icon={faCodeBranch} />
+        <a href="https://github.com/EliasBobadilla/gillian" target="blank">
+          <FontAwesomeIcon id="gtm-gillian-github" icon={faCodeBranch} />
         </a>
       </Header>
       <main

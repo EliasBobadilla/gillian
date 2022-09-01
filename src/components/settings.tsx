@@ -27,8 +27,8 @@ export function Settings({ fields, onSave, id }: Prop) {
 
   return (
     <>
-      <a id={id} href="#">
-        <FontAwesomeIcon icon={faGear} onClick={() => setIsOpen(true)} />
+      <a href="#">
+        <FontAwesomeIcon id={id} icon={faGear} onClick={() => setIsOpen(true)} />
       </a>
 
       {isOpen && (

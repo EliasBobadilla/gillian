@@ -42,7 +42,6 @@ export function Uploader({ onUpload, id }: Prop) {
 
   return (
     <a
-      id={id}
       href="#"
       css={css`
         position: relative;
@@ -58,7 +57,7 @@ export function Uploader({ onUpload, id }: Prop) {
         }
       `}
     >
-      <input type="file" onChange={handleChange} multiple />
+      <input id={id} type="file" onChange={handleChange} multiple />
       <FontAwesomeIcon icon={faUpload} />
     </a>
   )
